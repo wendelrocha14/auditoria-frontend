@@ -94,6 +94,9 @@ export function AuditScreen({ items: initialItems, auditInfo, onBack, onFinish }
   const handleFinish = async () => {
     setIsLoading(true)
     try {
+      // 🟢 CAPTURA O HORÁRIO EXATO DO TÉRMINO NO CLIQUE DO BOTÃO
+      const horaAtualTermino = new Date().toTimeString().slice(0, 5)
+      
       const itensParaEnvio = prepareItemsForFinalization(items)
       
       const payload = {
@@ -101,7 +104,7 @@ export function AuditScreen({ items: initialItems, auditInfo, onBack, onFinish }
           id: auditInfo.id,
           data: auditInfo.data,
           horaInicio: auditInfo.horaInicio,
-          horaFim: horaFim,
+          horaFim: horaAtualTermino, // 🟢 Atualizado aqui de 'horaFim' estático para o valor dinâmico gerado agora
           grupo: auditInfo.grupo,
           empresa: auditInfo.empresa,
         },
@@ -250,14 +253,13 @@ export function AuditScreen({ items: initialItems, auditInfo, onBack, onFinish }
         </main>
       </div>
 
-      {/* ─── RODAPÉ FIXO COM RELÓGIO EM TEMPO REAL ─── */}
+      {/* ─── RODAPÉ DINÂMICO APENAS COM RELÓGIO ─── */}
       <footer className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-t border-white/5 py-3 px-4 shadow-lg">
         <div className="max-w-lg mx-auto flex items-center justify-between text-xs text-muted-foreground">
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>Auditoria em andamento</span>
           </div>
-          {/* Mostra o relógio digital formatado */}
           <div className="font-mono bg-white/5 px-2.5 py-1 rounded-md text-foreground border border-white/5 flex items-center gap-1.5">
             <svg className="w-3.5 h-3.5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
