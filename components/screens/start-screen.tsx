@@ -130,12 +130,14 @@ const empresas = [
               <PremiumInput
                 label="Data"
                 type="date"
+                className="px-3"
                 value={formData.data}
                 onChange={(e) => setFormData(prev => ({ ...prev, data: e.target.value }))}
               />
               <PremiumInput
                 label="Hora Início"
                 type="time"
+                className="px-3"
                 value={formData.horaInicio}
                 onChange={(e) => setFormData(prev => ({ ...prev, horaInicio: e.target.value }))}
               />
