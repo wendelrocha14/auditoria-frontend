@@ -13,12 +13,12 @@ export function PremiumInput({ label, icon, className, ...props }: PremiumInputP
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative"
+      className="relative min-w-0"
     >
       <label className="block text-sm font-medium text-muted-foreground mb-2">
         {label}
       </label>
-      <div className="relative">
+      <div className="relative min-w-0">
         {icon && (
           <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
             {icon}
@@ -27,7 +27,9 @@ export function PremiumInput({ label, icon, className, ...props }: PremiumInputP
         <input
           {...props}
           className={cn(
-            'w-full bg-input border border-border rounded-xl py-4 px-4 text-foreground placeholder-muted-foreground',
+            'w-full min-w-0 max-w-full appearance-none bg-input border border-border rounded-xl py-4 px-4 text-foreground placeholder-muted-foreground',
+            // iOS Safari: campos date/time têm largura mínima própria e estouravam a coluna
+            '[&::-webkit-date-and-time-value]:text-left [&::-webkit-date-and-time-value]:min-h-[1.5em]',
             'focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent',
             'transition-all duration-200',
             icon && 'pl-12',
